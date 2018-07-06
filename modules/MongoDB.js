@@ -32,16 +32,17 @@ export default class MongoDB {
     insert(collectionName, records) {
         let self = this;
         return new Promise(function(resolve, reject) {
-            const collection = db.collection(collectionName);
+            const collection = self.db.collection(collectionName);
             collection.insertMany(records, self.defaultCallback.bind(self, resolve, reject));
         });
 
     }
 
     disconnect() {
+        let self = this;
         return new Promise(function(resolve, reject) {
-            this.validateOpenedConnection(reject);
-            this.client.close();
+            self.validateOpenedConnection(reject);
+            self.client.close();
             resolve();
         });
     }
