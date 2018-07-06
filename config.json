@@ -1,0 +1,15 @@
+{
+  "rabbitMQ": {
+    "serverURL": "localhost",
+    "exchange": "task_agents",
+    "exchangeType": "topic"
+  },
+  "queueMap": {
+    "sample2": "lint.test",
+    "sample1": "lint"
+  },
+  "db": {
+    "serverURL": "mongodb://localhost:27017",
+    "name": "sauron"
+  }
+}
