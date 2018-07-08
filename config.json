@@ -4,7 +4,7 @@
     "exchange": "task_agents",
     "exchangeType": "topic"
   },
-  "queueMap": {
+  "routingKeys": {
     "sample2": "lint.test",
     "sample1": "lint.basic"
   },

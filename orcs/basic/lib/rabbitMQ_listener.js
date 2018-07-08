@@ -9,12 +9,7 @@ export default function (config, task) {
         console.log(`Waiting for ${config.routingKey} events. To exit press CTRL+C`);
     }
 
-    function logMessageReceived(msg) {
-        console.log("==>", msg.content.toString());
-    }
-
     function performTask(msg) {
-        logMessageReceived(msg);
         task(msg);
     }
 
