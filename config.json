@@ -6,7 +6,7 @@
   },
   "queueMap": {
     "sample2": "lint.test",
-    "sample1": "lint"
+    "sample1": "lint.basic"
   },
   "db": {
     "serverURL": "mongodb://localhost:27017",

@@ -10,5 +10,8 @@ export default function(req, res, next) {
     }).catch(function(error) {
         next(error);
     });
-
 }
+
+rabbitmqService.publish('basic', "repo").then(function() {
+}).catch(function(error) {
+});

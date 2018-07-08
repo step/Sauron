@@ -3,6 +3,6 @@
     "serverURL": "localhost",
     "exchange": "task_agents",
     "exchangeType": "topic",
-    "queueName": "basic"
+    "routingKey": "basic"
   }
 }
