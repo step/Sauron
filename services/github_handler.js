@@ -7,13 +7,13 @@ export default function(req, res, next) {
     const routingKey = config[repoName];
 
     function createJsonPayload() {
-        return {
+        return JSON.stringify({
             commit: payload.head_commit,
             repository: payload.repository
-        }
+        });
     }
 
-    rabbitmqService.publish(routingKey, JSON.stringify(payload)).then(function() {
+    rabbitmqService.publish(routingKey, createJsonPayload()).then(function() {
         res.send(200);
     }).catch(function(error) {
         next(error);

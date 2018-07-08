@@ -1,16 +1,13 @@
 const amqp = require('amqplib');
+import logger from "./logger";
 
-export default function (config, task) {
+export default function (config, onMessageReceivedCallback) {
     function getRabbitMQServerURL() {
         return `amqp://${config.serverURL}`;
     }
 
-    function logWaitingMessage() {
-        console.log(`Waiting for ${config.routingKey} events. To exit press CTRL+C`);
-    }
-
-    function performTask(msg) {
-        task(msg);
+    function onMessageReceived(message) {
+        onMessageReceivedCallback(message.content.toString());
     }
 
     function getRoutingKey() {
@@ -25,9 +22,9 @@ export default function (config, task) {
     }).then(function (args) {
         const q = args[0];
         const channel = args[1];
-        logWaitingMessage();
+        logger.logWaitingMessage(config.routingKey);
         channel.bindQueue(q.queue, config.exchange, getRoutingKey());
-        channel.consume(q.queue, performTask, {noAck: true});
+        channel.consume(q.queue, onMessageReceived, {noAck: true});
     });
 }
 
