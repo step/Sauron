@@ -4,5 +4,9 @@
     "exchange": "task_agents",
     "exchangeType": "topic",
     "routingKey": "basic"
+  },
+  "souron": {
+    "url": "http://localhost:3010",
+    "reportsPath": "results"
   }
 }

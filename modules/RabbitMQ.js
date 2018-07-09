@@ -25,7 +25,6 @@ export default class RabbitMQ {
                             self.ch.assertExchange(self.ex, self.exchangeType, {durable: false});
                             resolve(self);
                         }
-
                     });
                 }
 

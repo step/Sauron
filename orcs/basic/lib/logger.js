@@ -44,6 +44,10 @@ function logTaskStarted(uniqueId) {
     console.log(`\t [${uniqueId}] [${timestamp()}] Starting to execute task`)
 }
 
+function logSendingReportsFailed(uniqueId, e) {
+    console.error(`\t [${uniqueId}] [${timestamp()}] Error: Error while sending reports back`)
+    console.error("\t\t", e);
+}
 
 export default {
     logParsingError,
@@ -55,5 +59,6 @@ export default {
     logWaitingMessage,
     logDeletingRepoDirectory,
     logDownloadingRepo,
-    logTaskStarted
+    logTaskStarted,
+    logSendingReportsFailed
 }

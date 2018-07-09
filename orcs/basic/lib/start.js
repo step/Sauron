@@ -3,32 +3,29 @@ import task from "../index.js";
 import logger from "./logger";
 import rabbitMQListener from "./rabbitMQ_listener";
 import {downloadRepository, deleteRepoDirectory} from "./repository_handler";
+import sendReports from "./reports_adaptor";
 
 function parseMessage(message) {
     return new Promise(function (resolve, reject) {
         try {
             let data = JSON.parse(message);
-            resolve(addUniqueLogId(data));
+            resolve(addExtraData(data));
         } catch (e) {
             reject(e);
         }
     });
 }
 
-function addUniqueLogId(data) {
-    return Object.assign(data, {uniqueLogId: data.commit.id.substr(0,7)});
-}
-
-
-function sendReports(data, reports) {
-    logger.logSendingReports(data.uniqueLogId);
-    logger.logReportsSent(data.uniqueLogId);
+function addExtraData(data) {
+    return Object.assign(data, {
+        uniqueLogId: data.commit.id.substr(0, 7),
+        directory: `./repo/${data.commit.id}`
+    });
 }
 
 function onMessageReceived(message) {
     parseMessage(message)
-        .then(performTask)
-        .catch(logger.logParsingError);
+        .then(performTask, logger.logParsingError);
 }
 
 function onTaskCompleted(data, reports) {
@@ -47,8 +44,7 @@ function performTask(data) {
     downloadRepository(data);
     logger.logTaskStarted(data.uniqueLogId);
     task(data)
-        .then(onTaskCompleted.bind(null, data))
-        .catch(onTaskError.bind(null, data));
+        .then(onTaskCompleted.bind(null, data), onTaskError.bind(null, data));
 }
 
 rabbitMQListener(config, onMessageReceived);

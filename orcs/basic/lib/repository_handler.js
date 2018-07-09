@@ -2,12 +2,8 @@ const shell = require('shelljs');
 shell.config.silent = true;
 import logger from "./logger";
 
-function getDirectoryName(data) {
-    return `./repo/${data.commit.id}`;
-}
-
 export function deleteRepoDirectory(data) {
-    const directoryName = getDirectoryName(data);
+    const directoryName = data.directory;
     logger.logDeletingRepoDirectory(data.uniqueLogId, directoryName);
     shell.rm("-rf", directoryName);
 }
@@ -24,7 +20,7 @@ export function downloadRepository(data) {
         return `curl -L ${getArchiveLink()} | tar xz --strip=1`
     }
 
-    const directoryName = getDirectoryName(data);
+    const directoryName = data.directory;
     deleteRepoDirectory(data);
     logger.logDownloadingRepo(data.uniqueLogId, getArchiveLink(), directoryName);
     shell.mkdir(directoryName);
