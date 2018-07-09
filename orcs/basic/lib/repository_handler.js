@@ -4,7 +4,7 @@ import logger from "./logger";
 
 export function deleteRepoDirectory(data) {
     const directoryName = data.directory;
-    logger.logDeletingRepoDirectory(data.uniqueLogId, directoryName);
+    logger.logDeletingRepoDirectory(data.uniqueId, directoryName);
     shell.rm("-rf", directoryName);
 }
 
@@ -22,7 +22,7 @@ export function downloadRepository(data) {
 
     const directoryName = data.directory;
     deleteRepoDirectory(data);
-    logger.logDownloadingRepo(data.uniqueLogId, getArchiveLink(), directoryName);
+    logger.logDownloadingRepo(data.uniqueId, getArchiveLink(), directoryName);
     shell.mkdir(directoryName);
     shell.cd(directoryName);
     shell.exec(getCommandToDownloadRepo());

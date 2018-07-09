@@ -7,15 +7,15 @@ export default function (data, reports) {
 
     function handleResponse(response) {
         if (response.statusCode === 200) {
-            logger.logReportsSent(data.uniqueLogId);
+            logger.logReportsSent(data.uniqueId);
         } else {
             const error = new Error(`${response.statusCode} - ${response.statusMessage}`);
-            logger.logSendingReportsFailed(data.uniqueLogId, error);
+            logger.logSendingReportsFailed(data.uniqueId, error);
         }
     }
 
     function handleError(error) {
-        logger.logSendingReportsFailed(data.uniqueLogId, error);
+        logger.logSendingReportsFailed(data.uniqueId, error);
     }
 
     function generateURL() {
@@ -29,6 +29,6 @@ export default function (data, reports) {
         }).on('error', handleError).on('response', handleResponse);
     }
 
-    logger.logSendingReports(data.uniqueLogId);
+    logger.logSendingReports(data.uniqueId);
     postReports();
 }

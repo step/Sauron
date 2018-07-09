@@ -18,7 +18,6 @@ function parseMessage(message) {
 
 function addExtraData(data) {
     return Object.assign(data, {
-        uniqueLogId: data.commit.id.substr(0, 7),
         directory: `./repo/${data.commit.id}`
     });
 }
@@ -29,20 +28,20 @@ function onMessageReceived(message) {
 }
 
 function onTaskCompleted(data, reports) {
-    logger.logTaskCompleted(data.uniqueLogId);
+    logger.logTaskCompleted(data.uniqueId);
     deleteRepoDirectory(data);
     sendReports(data, reports);
 }
 
 function onTaskError(data, e) {
     deleteRepoDirectory(data);
-    logger.logTaskFailed(data.uniqueLogId, e);
+    logger.logTaskFailed(data.uniqueId, e);
 }
 
 function performTask(data) {
     logger.logMessageReceived(data);
     downloadRepository(data);
-    logger.logTaskStarted(data.uniqueLogId);
+    logger.logTaskStarted(data.uniqueId);
     task(data)
         .then(onTaskCompleted.bind(null, data), onTaskError.bind(null, data));
 }

@@ -6,10 +6,17 @@ export default function(req, res, next) {
     const repoName = payload.repository.name;
     const routingKey = config[repoName];
 
+    function generateUniqueId() {
+        const dateTimeString = new Date().toISOString();
+        let commitId = payload.head_commit.id.substr(0, 7);
+        return new Buffer(`${commitId}|${dateTimeString}`).toString("base64");
+    }
+
     function createJsonPayload() {
         return JSON.stringify({
             commit: payload.head_commit,
-            repository: payload.repository
+            repository: payload.repository,
+            uniqueId: generateUniqueId()
         });
     }
 
