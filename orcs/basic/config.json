@@ -8,5 +8,8 @@
   "souron": {
     "url": "http://localhost:3010",
     "reportsPath": "results"
+  },
+  "agent": {
+    "name": "Basic"
   }
 }

@@ -1,7 +1,7 @@
 import logger from "./logger";
 
 const request = require("request");
-import {souron as config} from "../config";
+import {souron, agent} from "../config";
 
 export default function (data, reports) {
 
@@ -19,13 +19,20 @@ export default function (data, reports) {
     }
 
     function generateURL() {
-        return `${config.url}/${config.reportsPath}`;
+        return `${souron.url}/${souron.reportsPath}`;
+    }
+
+    function generateReport() {
+        return Object.assign(data, {
+            reports: Object.assign(reports, { generatedAt: new Date().toString() }),
+            orc: agent
+        });
     }
 
     function postReports() {
         request.post({
             url: generateURL(),
-            json: Object.assign(data, {reports: reports})
+            json: generateReport()
         }).on('error', handleError).on('response', handleResponse);
     }
 
