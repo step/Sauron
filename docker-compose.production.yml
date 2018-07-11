@@ -10,8 +10,8 @@ services:
      - "5672:5672"
      - "15672:15672"
     volumes:
-     - /docker-volumes/sauron/rabbitmq
+     - /docker-volumes/sauron/rabbitmq:/var/lib/rabbitmq
   mongodb:
     image: "mongo"
     volumes:
-         - /docker-volumes/sauron/mongodb
+         - /docker-volumes/sauron/mongodb:/data/db
