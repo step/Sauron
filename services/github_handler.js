@@ -14,8 +14,10 @@ export default function(req, res, next) {
 
     function createJsonPayload() {
         return JSON.stringify({
-            commit: payload.head_commit,
-            repository: payload.repository,
+            git: {
+                commit: payload.head_commit,
+                repository: payload.repository,
+            },
             uniqueId: generateUniqueId()
         });
     }

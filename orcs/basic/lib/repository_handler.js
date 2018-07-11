@@ -11,9 +11,9 @@ export function deleteRepoDirectory(data) {
 export function downloadRepository(data) {
 
     function getArchiveLink() {
-        let archiveLink = data.repository.archive_url;
+        let archiveLink = data.git.repository.archive_url;
         archiveLink = archiveLink.replace("{archive_format}", "tarball");
-        return archiveLink.replace("{/ref}", `/${data.commit.id}`);
+        return archiveLink.replace("{/ref}", `/${data.git.commit.id}`);
     }
 
     function getCommandToDownloadRepo() {

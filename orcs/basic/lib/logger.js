@@ -8,7 +8,7 @@ function logParsingError(e) {
 }
 
 function logMessageReceived(data) {
-    console.log(`[${data.uniqueId}] [${timestamp()}] Received repo :${data.repository.name}, Commit: ${data.commit.id}`);
+    console.log(`[${data.uniqueId}] [${timestamp()}] Received repo :${data.git.repository.name}, Commit: ${data.git.commit.id}`);
 }
 
 function logSendingReports(uniqueId) {

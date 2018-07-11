@@ -4,6 +4,7 @@ import logger from "./logger";
 import rabbitMQListener from "./rabbitMQ_listener";
 import {downloadRepository, deleteRepoDirectory} from "./repository_handler";
 import sendReports from "./reports_adaptor";
+import {generateSuccessReports, generateFailedReports} from "./reports_handler";
 
 function parseMessage(message) {
     return new Promise(function (resolve, reject) {
@@ -30,12 +31,13 @@ function onMessageReceived(message) {
 function onTaskCompleted(data, reports) {
     logger.logTaskCompleted(data.uniqueId);
     deleteRepoDirectory(data);
-    sendReports(data, reports);
+    sendReports(data, generateSuccessReports(data, reports));
 }
 
 function onTaskError(data, e) {
     deleteRepoDirectory(data);
     logger.logTaskFailed(data.uniqueId, e);
+    sendReports(data, generateFailedReports(data, e))
 }
 
 function performTask(data) {
