@@ -14,7 +14,7 @@ export default class RabbitMQ {
         return new Promise(function (resolve, reject) {
             amqp.connect(`amqp://${self.serverURL}`, function (connError, conn) {
                 if (connError) {
-                    reject(err);
+                    reject(connError);
                 } else {
                     self.conn = conn;
                     conn.createChannel(function (err, ch) {

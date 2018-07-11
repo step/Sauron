@@ -1,6 +1,6 @@
 {
   "rabbitMQ": {
-    "serverURL": "localhost",
+    "serverURL": "rabbitmq",
     "exchange": "task_agents",
     "exchangeType": "topic"
   },
@@ -9,7 +9,7 @@
     "sample1": "lint.basic"
   },
   "db": {
-    "serverURL": "mongodb://localhost:27017",
+    "serverURL": "mongodb://mongodb:27017",
     "name": "sauron"
   }
 }
