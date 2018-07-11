@@ -1,6 +1,6 @@
 {
   "rabbitMQ": {
-    "serverURL": "rabbitmq",
+    "serverURL": "localhost",
     "exchange": "task_agents",
     "exchangeType": "topic"
   },
