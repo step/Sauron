@@ -9,5 +9,9 @@ services:
     ports:
      - "5672:5672"
      - "15672:15672"
+    volumes:
+     - ./docker-volumes/rabbitmq:/var/lib/rabbitmq
   mongodb:
     image: "mongo"
+    volumes:
+     - ./docker-volume/mongo:/data/db

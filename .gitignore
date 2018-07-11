@@ -1,4 +1,5 @@
 dist/
 node_modules
 .idea/
-
+docker-volume/
+.DS_Store
