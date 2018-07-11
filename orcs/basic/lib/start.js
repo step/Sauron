@@ -18,7 +18,7 @@ function parseMessage(message) {
 
 function addExtraData(data) {
     return Object.assign(data, {
-        directory: `./repo/${data.commit.id}`
+        directory: `./repo/${data.uniqueId}`
     });
 }
 
