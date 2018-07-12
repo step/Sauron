@@ -1,11 +1,11 @@
 import rabbitmqService from "../services/rabbitmq_service";
-import {routingKeys as config} from "../config.json";
+import config from "../config";
 import _ from "underscore";
 
 export default function (req, res, next) {
     const payload = JSON.parse(req.body.payload);
     const repoName = payload.repository.name;
-    const routingKey = config[repoName];
+    const routingKey = config.routingKeys[repoName];
 
     function generateUniqueId() {
         const dateTimeString = new Date().toISOString();
@@ -23,8 +23,6 @@ export default function (req, res, next) {
             uniqueId: generateUniqueId()
         });
     }
-
-    console.log(JSON.parse(createJsonPayload()));
 
     rabbitmqService.publish(routingKey, createJsonPayload()).then(function () {
         res.send(200);

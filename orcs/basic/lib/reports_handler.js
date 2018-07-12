@@ -1,6 +1,4 @@
-import {agent} from "../config";
-
-function addOrcInfo(data) {
+function addOrcInfo(data, agent) {
     return Object.assign(data, {
         orc: agent
     });
@@ -11,8 +9,8 @@ function currentDateTimeString() {
 }
 
 
-export function generateSuccessReports(data, taskResults) {
-    const dataWithOrcInfo = addOrcInfo(data);
+export function generateSuccessReports(agent, data, taskResults) {
+    const dataWithOrcInfo = addOrcInfo(data, agent);
     return Object.assign(dataWithOrcInfo, {
         status: "SUCCESSES",
         resultsGeneratedAt: currentDateTimeString(),
@@ -20,7 +18,7 @@ export function generateSuccessReports(data, taskResults) {
     });
 }
 
-export function generateFailedReports(data, error) {
+export function generateFailedReports(agent, data, error) {
     const dataWithOrcInfo = addOrcInfo(data);
     return Object.assign(dataWithOrcInfo, {
         status: "FAILED",

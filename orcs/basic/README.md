@@ -14,7 +14,7 @@ Creating an Orc (Agent)
          "exchangeType": "Exchange Type (Should be 'topic')",
          "routingKey": "Routing key same as the key that you configured in souron (ex: lint, test etc.,)"
        },
-       "souron": {
+       "sauron": {
          "url": "Souron server URL, ex: http://localhost:3010",
          "reportsPath": "Souron POST reports endpoint path, ex: results"
        }

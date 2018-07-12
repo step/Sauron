@@ -1,10 +1,10 @@
-import {db as config} from "../config.json";
+import config from "../config";
 import MongoDb from "../modules/MongoDB";
 
 export default {
     save: function (req, res, next) {
         const data = req.body;
-        let mongo = new MongoDb(config.serverURL, config.name);
+        let mongo = new MongoDb(config.db.serverURL, config.db.name);
         mongo.connect().then(function () {
             return mongo.insert('results', [data]);
         }).then(function (result) {

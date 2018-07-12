@@ -1,9 +1,7 @@
 import logger from "./logger";
-
 const request = require("request");
-import {souron} from "../config";
 
-export default function (data, reports) {
+export default function (sauron, data, reports) {
 
     function handleResponse(response) {
         if (response.statusCode === 200) {
@@ -18,13 +16,9 @@ export default function (data, reports) {
         logger.logSendingReportsFailed(data.uniqueId, error);
     }
 
-    function generateURL() {
-        return `${souron.url}/${souron.reportsPath}`;
-    }
-
     function postReports() {
         request.post({
-            url: generateURL(),
+            url: sauron.postReportsUrl,
             json: reports
         }).on('error', handleError).on('response', handleResponse);
     }

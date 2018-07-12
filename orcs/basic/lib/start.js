@@ -1,4 +1,4 @@
-import {rabbitMQ as config} from "../config.json";
+import config from "../config";
 import task from "../index.js";
 import logger from "./logger";
 import rabbitMQListener from "./rabbitMQ_listener";
@@ -31,13 +31,13 @@ function onMessageReceived(message) {
 function onTaskCompleted(data, reports) {
     logger.logTaskCompleted(data.uniqueId);
     deleteRepoDirectory(data);
-    sendReports(data, generateSuccessReports(data, reports));
+    sendReports(config.sauron, data, generateSuccessReports(config.agent, data, reports));
 }
 
 function onTaskError(data, e) {
     deleteRepoDirectory(data);
     logger.logTaskFailed(data.uniqueId, e);
-    sendReports(data, generateFailedReports(data, e))
+    sendReports(config.sauron, data, generateFailedReports(config.agent, data, e))
 }
 
 function performTask(data) {
@@ -48,4 +48,4 @@ function performTask(data) {
         .then(onTaskCompleted.bind(null, data), onTaskError.bind(null, data));
 }
 
-rabbitMQListener(config, onMessageReceived);
+rabbitMQListener(config.rabbitMQ, onMessageReceived);
