@@ -3,23 +3,16 @@ Creating an Orc (Agent)
 
  - Copy this Basic Orc
  - Rename the directory as your wish
- - Change config.json file accordingly
- ``` {
+ - Add agent information in config.json file
+ ``` 
+    {
        "agent": {
          "name": "This Orc(agent) name, ex: Linter, Test-runner"
-       },
-       "rabbitMQ": {
-         "serverURL": "Please privide your RabbitMQ server URL",
-         "exchange": "RabbitMQ Exchange name where all the messges coming from",
-         "exchangeType": "Exchange Type (Should be 'topic')",
-         "routingKey": "Routing key same as the key that you configured in souron (ex: lint, test etc.,)"
-       },
-       "sauron": {
-         "url": "Souron server URL, ex: http://localhost:3010",
-         "reportsPath": "Souron POST reports endpoint path, ex: results"
        }
      }
  ```
+ - Set the following env variables
+  ``` RABBITMQ_SERVER_URL, RABBITMQ_EXCHANGE, RABBITMQ_ROUTINGKEY, SAURON_REPORTS_URL ```
  - Add any extra dependencies to package.json if you need (Do not delete existing ones) or `npm install dependency-name --save`
  - You can start writing the task in `index.js` inside the promise function 
   ```
