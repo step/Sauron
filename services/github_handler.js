@@ -1,10 +1,12 @@
 import rabbitmqService from "../services/rabbitmq_service";
 import config from "../config";
 import _ from "underscore";
+import logger from "./logger";
 
 export default function (req, res, next) {
     const payload = JSON.parse(req.body.payload);
     const repoName = payload.repository.name;
+    logger.logEventOccurence(repoName);
     const routingKey = getRoutingKey(repoName);
 
 
@@ -36,9 +38,12 @@ export default function (req, res, next) {
     }
 
     function publishToRabbitMQ() {
-        rabbitmqService.publish(routingKey, createJsonPayload()).then(function () {
+        const jsonPayload = createJsonPayload();
+        rabbitmqService.publish(routingKey, jsonPayload).then(function () {
+            logger.logMessagePublished(JSON.parse(jsonPayload), routingKey);
             res.send(200);
         }).catch(function (error) {
+            logger.logPublishError(JSON.parse(jsonPayload), error, routingKey);
             next(error);
         });
     }
@@ -46,7 +51,7 @@ export default function (req, res, next) {
     if(payload.head_commit) {
            publishToRabbitMQ()
     } else {
-        console.log(`Event came from ${repoName} without the commit details.`);
+        logger.logInsufficientDataEvent(repoName);
         res.send(200);
     }
 }
