@@ -5,7 +5,18 @@ import _ from "underscore";
 export default function (req, res, next) {
     const payload = JSON.parse(req.body.payload);
     const repoName = payload.repository.name;
-    const routingKey = config.routingKeys[repoName];
+    const routingKey = getRoutingKey(repoName);
+
+
+    function getRoutingKey(repoName) {
+        let routingKey = "default";
+        Object.keys(config.routingKeys).forEach(function (assignment) {
+            if (repoName.startsWith(assignment)) {
+                routingKey = config.routingKeys[assignment];
+            }
+        });
+        return routingKey;
+    }
 
     function generateUniqueId() {
         const dateTimeString = new Date().toISOString();
