@@ -15,7 +15,7 @@ export default function(data) {
 
         function lint(sourcePath) {
             const cli = new CLIEngine(eslintOptions);
-            const eslintReport = cli.executeOnFiles(sourcePath);
+            const eslintReport = cli.executeOnFiles([sourcePath]);
             const results = removeSource(eslintReport.results);
             return Object.assign(eslintReport, {results: results});
         }
