@@ -35,9 +35,18 @@ export default function (req, res, next) {
         });
     }
 
-    rabbitmqService.publish(routingKey, createJsonPayload()).then(function () {
+    function publishToRabbitMQ() {
+        rabbitmqService.publish(routingKey, createJsonPayload()).then(function () {
+            res.send(200);
+        }).catch(function (error) {
+            next(error);
+        });
+    }
+
+    if(payload.head_commit) {
+           publishToRabbitMQ()
+    } else {
+        console.log(`Event came from ${repoName} without the commit details.`);
         res.send(200);
-    }).catch(function (error) {
-        next(error);
-    });
+    }
 }

@@ -6,7 +6,8 @@ export default {
   },
   "routingKeys": {
     "sample2": "lint.test",
-    "sample1": "lint.basic"
+    "sample1": "lint.basic",
+    "orc-runner": "lint"
   },
   "db": {
     "serverURL": process.env.MONGODB_SERVER_URL || "mongodb://localhost:27017",
