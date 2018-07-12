@@ -1,9 +1,5 @@
-const shell = require("shelljs");
-shell.config.silent = true;
+import task from "./task";
+import config from "./config";
+const orcRunner = require("orc-runner");
 
-export default function(data) {
-    return new Promise(function(resolve, reject) {
-        const noOfFiles = shell.ls("-R", data.directory).length;
-        resolve({noOfFiles: noOfFiles});
-    });
-}
+orcRunner.start(config, task);
