@@ -4,6 +4,10 @@ services:
     image: "steptw/sauron"
     ports:
      - "3010:3010"
+    env_file:
+     - sauron_variables.env
+    volumes:
+     - /apps/sauron/routingKeysConfig.json:/usr/src/app/routingKeysConfig.json
   rabbitmq:
     image: "rabbitmq:3-management"
     ports:
@@ -14,4 +18,4 @@ services:
   mongodb:
     image: "mongo"
     volumes:
-         - /docker-volumes/sauron/mongodb:/data/db
+     - /docker-volumes/sauron/mongodb:/data/db

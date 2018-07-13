@@ -4,6 +4,10 @@ services:
     build: .
     ports:
      - "3010:3010"
+    env_file:
+     - sauron_variables.env
+    volumes:
+     - ${PWD}/routingKeysConfig.json:/usr/src/app/routingKeysConfig.json
   rabbitmq:
     image: "rabbitmq:3-management"
     ports:

@@ -1,5 +1,5 @@
 import rabbitmqService from "../services/rabbitmq_service";
-import config from "../config";
+import routingKeysConfig from "../routingKeysConfig";
 import _ from "underscore";
 import logger from "./logger";
 
@@ -12,9 +12,9 @@ export default function (req, res, next) {
 
     function getRoutingKey(repoName) {
         let routingKey = "default";
-        Object.keys(config.routingKeys).forEach(function (assignment) {
+        Object.keys(routingKeysConfig).forEach(function (assignment) {
             if (repoName.startsWith(assignment)) {
-                routingKey = config.routingKeys[assignment];
+                routingKey = routingKeysConfig[assignment];
             }
         });
         return routingKey;
