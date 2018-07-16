@@ -41,7 +41,7 @@ export default function (req, res, next) {
         const jsonPayload = createJsonPayload();
         rabbitmqService.publish(routingKey, jsonPayload).then(function () {
             logger.logMessagePublished(JSON.parse(jsonPayload), routingKey);
-            res.send(200);
+            res.sendStatus(200);
         }).catch(function (error) {
             logger.logPublishError(JSON.parse(jsonPayload), error, routingKey);
             next(error);
@@ -52,6 +52,6 @@ export default function (req, res, next) {
            publishToRabbitMQ()
     } else {
         logger.logInsufficientDataEvent(repoName);
-        res.send(200);
+        res.sendStatus(200);
     }
 }

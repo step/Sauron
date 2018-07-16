@@ -22,7 +22,7 @@ export default class RabbitMQ {
                             reject(err);
                         } else {
                             self.ch = ch;
-                            self.ch.assertExchange(self.ex, self.exchangeType, {durable: false});
+                            self.ch.assertExchange(self.ex, self.exchangeType, {durable: true});
                             resolve(self);
                         }
                     });
@@ -42,7 +42,7 @@ export default class RabbitMQ {
         let self = this;
         return new Promise(function (resolve, reject) {
             self.validateOpenedConnection(reject);
-            self.ch.publish(self.ex, key, new Buffer(message));
+            self.ch.publish(self.ex, key, new Buffer(message), {persistent: true});
             resolve();
         });
     }
