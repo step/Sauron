@@ -1,5 +1,5 @@
 {
-  "$id": "http://example.com/sauron",
+  "$id": "http://sauron-step.somewhe.re/sauron",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "JSON Schema for a Sauron event",
   "required": [
@@ -23,7 +23,8 @@
         "end_time": {
           "$ref": "#/definitions/time"
         }
-      }
+      },
+      "required": ["start_time","end_time"]
     },
     "project": {
       "properties": {
@@ -33,7 +34,8 @@
         "routing_keys": {
           "type": "string"
         }
-      }
+      },
+      "required":["name","routing_keys"]
     },
     "commit": {
       "properties": {
@@ -47,7 +49,8 @@
         "timestamp": {
           "$ref": "#/definitions/time"
         }
-      }
+      },
+      "required": ["id","url","timestamp"]
     },
     "repository": {
       "properties": {
@@ -57,10 +60,11 @@
         "name": {
           "type": "string"
         },
-        "full-name": {
+        "full_name": {
           "type": "string"
         }
-      }
+      },
+      "required": ["id","name","full_name"]
     },
     "author": {
       "properties": {
@@ -75,7 +79,8 @@
           "type": "string",
           "format": "email"
         }
-      }
+      },
+      "required": ["name","username","email"]
     },
     "agent": {
       "properties": {
@@ -85,7 +90,8 @@
         "container_id": {
           "type": "string"
         }
-      }
+      },
+      "required":["name"]
     },
     "job": {
       "properties": {
@@ -128,7 +134,8 @@
         "required": [
           "error_message"
         ]
-      }
+      },
+      "required":["name","status","start_time","end_time","results"]
     }
   },
   "additionalProperties": false,
