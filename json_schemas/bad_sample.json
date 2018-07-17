@@ -1,7 +1,7 @@
 {
-  "id": "very large uuid",
+  "id": "bad sample",
   "flow": {
-    "start_time": "2018-07-16T10:52:32+05:30",
+    "start_time": "2018-07-16T10:52:32+05:30--",
     "end_time": "2018-07-16T11:52:32+05:30"
   },
   "project": {
