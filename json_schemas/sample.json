@@ -1,0 +1,40 @@
+{
+  "id": "very large uuid",
+  "flow": {
+    "start_time": "2018-07-16T10:52:32+05:30",
+    "end_time": "2018-07-16T11:52:32+05:30",
+  },
+  "project": {
+    "name": "snake",
+    "routing_keys": "lint.test"
+  },
+  "commit": {
+    "id": "87e3c75eafd825d0efab75adcc6d60ed090f5d77",
+    "url": "https://github.com/step-archive/wc-foo/commit/87e3c75eafd825d0efab75adcc6d60ed090f5d77",
+    "timestamp": "2018-07-16T10:52:32+05:30",
+  },
+  "repository": {
+    "id": 140810787,
+    "name": "wc-foo",
+    "full_name": "step/wc-foo"
+  },
+  "author": {
+    "name": "Srijayanth Sridhar",
+    "username": "craftybones",
+    "email": "srijayanth@gmail.com",
+  },
+  "agent": {
+    "name": "linter-1",
+    "container_id": "somehexvalue"
+  },
+  "job": {
+    "name": "lint",
+    "status": "error",
+    "error_message": "Something happened",
+    "start_time": "2018-07-16T10:53:32+05:30",
+    "end_time": "2018-07-16T10:52:32+05:30",
+    "results": {
+      "indentation_error": "etc"
+    }
+  }
+}

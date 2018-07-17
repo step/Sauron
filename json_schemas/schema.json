@@ -1,0 +1,145 @@
+{
+  "$id": "http://example.com/sauron",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "JSON Schema for a Sauron event",
+  "required": [
+    "id",
+    "flow",
+    "project",
+    "commit",
+    "repository",
+    "author",
+    "agent"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "flow": {
+      "properties": {
+        "start_time": {
+          "$ref": "#/definitions/time"
+        },
+        "end_time": {
+          "$ref": "#/definitions/time"
+        }
+      }
+    },
+    "project": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "routing_keys": {
+          "type": "string"
+        }
+      }
+    },
+    "commit": {
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/sha"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "timestamp": {
+          "$ref": "#/definitions/time"
+        }
+      }
+    },
+    "repository": {
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "full-name": {
+          "type": "string"
+        }
+      }
+    },
+    "author": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string",
+          "pattern": "^[^ \t]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        }
+      }
+    },
+    "agent": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "container_id": {
+          "type": "string"
+        }
+      }
+    },
+    "job": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "success",
+            "failure",
+            "error",
+            "unknown"
+          ]
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "start_time": {
+          "$ref": "#/definitions/time"
+        },
+        "end_time": {
+          "$ref": "#/definitions/time"
+        },
+        "results": {
+          "type": "object"
+        }
+      },
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "failure",
+              "error",
+              "unknown"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "error_message"
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    }
+  }
+}
