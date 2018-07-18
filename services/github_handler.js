@@ -1,5 +1,5 @@
 import rabbitmqService from "../services/rabbitmq_service";
-import routingKeysConfig from "../routingKeysConfig";
+import projects from "../projects_config.json";
 import _ from "underscore";
 import logger from "./logger";
 
@@ -7,17 +7,16 @@ export default function (req, res, next) {
     const payload = JSON.parse(req.body.payload);
     const repoName = payload.repository.name;
     logger.logEventOccurence(repoName);
-    const routingKey = getRoutingKey(repoName);
 
 
-    function getRoutingKey(repoName) {
-        let routingKey = "default";
-        Object.keys(routingKeysConfig).forEach(function (assignment) {
-            if (repoName.startsWith(assignment)) {
-                routingKey = routingKeysConfig[assignment];
+    function getProjectDetails(repoName) {
+        let project = { name: "default", routing_key: "default" };
+        projects.forEach(function(pro) {
+            if(repoName.startsWith(pro.repo_keyword)) {
+                project = pro;
             }
         });
-        return routingKey;
+        return project;
     }
 
     function generateUniqueId() {
@@ -26,30 +25,32 @@ export default function (req, res, next) {
         return new Buffer(`${commitId}|${dateTimeString}`).toString("base64");
     }
 
-    function createJsonPayload() {
-        const repositoryKeys = ["id", "name", "full_name", "description", "archive_url", "git_url", "ssh_url", "clone_url"];
+    function createJsonPayload(project) {
         return JSON.stringify({
-            git: {
-                commit: payload.head_commit,
-                repository: _.pick(payload.repository, ...repositoryKeys)
+            id: generateUniqueId(),
+            flow: {
+              start_time: new Date().toString()
             },
-            uniqueId: generateUniqueId()
+            commit: _.pick(payload.head_commit, "id", "url", "timestamp"),
+            repository: _.pick(payload.repository, "id", "name", "full_name", "archive_url"),
+            author: payload.head_commit.author,
+            project: project
         });
     }
 
-    function publishToRabbitMQ() {
-        const jsonPayload = createJsonPayload();
-        rabbitmqService.publish(routingKey, jsonPayload).then(function () {
-            logger.logMessagePublished(JSON.parse(jsonPayload), routingKey);
+    function publishToRabbitMQ(project) {
+        const jsonPayload = createJsonPayload(project);
+        rabbitmqService.publish(project.routing_key, jsonPayload).then(function () {
+            logger.logMessagePublished(JSON.parse(jsonPayload), project.routing_key);
             res.sendStatus(200);
         }).catch(function (error) {
-            logger.logPublishError(JSON.parse(jsonPayload), error, routingKey);
+            logger.logPublishError(JSON.parse(jsonPayload), error, project.routing_key);
             next(error);
         });
     }
 
     if(payload.head_commit) {
-           publishToRabbitMQ()
+           publishToRabbitMQ(getProjectDetails(repoName))
     } else {
         logger.logInsufficientDataEvent(repoName);
         res.sendStatus(200);

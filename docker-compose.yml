@@ -7,7 +7,7 @@ services:
     env_file:
      - sauron_variables.env
     volumes:
-     - ${PWD}/routingKeysConfig.json:/usr/src/app/routingKeysConfig.json
+     - ${PWD}/projects_config.json:/usr/src/app/projects_config.json
   rabbitmq:
     image: "rabbitmq:3-management"
     ports:

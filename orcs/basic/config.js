@@ -1,5 +1,5 @@
 export default {
-    "agent": {
+    "job": {
         "name": "Basic"
     },
     "rabbitMQ": {
@@ -9,6 +9,6 @@ export default {
         "routingKey": process.env.RABBITMQ_ROUTINGKEY || "basic"
     },
     "sauron": {
-        "postReportsUrl": process.env.SAURON_REPORTS_URL || "http://localhost:3010/results"
+        "postReportsUrl": process.env.SAURON_REPORTS_URL || "http://f8e67dfa.ngrok.io/results"
     }
 }

@@ -7,24 +7,24 @@ function logInsufficientDataEvent(repoName) {
 }
 
 function logMessagePublished(data, routingKey) {
-    console.log(`[${data.uniqueId}] [${timestamp()}] Published to RabbitMQ, repo:${data.git.repository.name}, commit:${data.git.commit.id}, routingKey:${routingKey}`);
+    console.log(`[${data.id}] [${timestamp()}] Published to RabbitMQ, repo:${data.repository.name}, commit:${data.commit.id}, routing_key:${routingKey}`);
 }
 
 function logPublishError(data, error, routingKey) {
-    console.error(`[${data.uniqueId}] [${timestamp()}] Error publishing to RabbitMQ, repo:${data.git.repository.name}, commit:${data.git.commit.id}, routingKey:${routingKey}`);
+    console.error(`[${data.id}] [${timestamp()}] Error publishing to RabbitMQ, repo:${data.repository.name}, commit:${data.commit.id}, routing_key:${routingKey}`);
     console.error("\t", error);
 }
 
 function logSavingReports(data) {
-    console.log(`[${data.uniqueId}] [${timestamp()}] Triggered saving reports`);
+    console.log(`[${data.id}] [${timestamp()}] Triggered saving reports`);
 }
 
 function logSavedReports(data) {
-    console.log(`[${data.uniqueId}] [${timestamp()}] Saved reports successfully`);
+    console.log(`[${data.id}] [${timestamp()}] Saved reports successfully`);
 }
 
 function logErrorSavingReports(data, error) {
-    console.error(`[${data.uniqueId}] [${timestamp()}] Error saving reports to DB`);
+    console.error(`[${data.id}] [${timestamp()}] Error saving reports to DB`);
     console.error("\t", error);
 }
 
