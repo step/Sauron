@@ -6,7 +6,7 @@ import _ from "underscore";
 export default {
     save: function (req, res, next) {
         const payload = req.body;
-        logger.logSavingReports(data);
+        logger.logSavingReports(payload);
 
         function transformPayload(payload) {
             return {
