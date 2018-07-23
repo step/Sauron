@@ -29,7 +29,7 @@ export default function (req, res, next) {
         return JSON.stringify({
             id: generateUniqueId(),
             flow: {
-              start_time: new Date().toString()
+              start_time: new Date().toISOString()
             },
             commit: _.pick(payload.head_commit, "id", "url", "timestamp"),
             repository: _.pick(payload.repository, "id", "name", "full_name", "archive_url"),

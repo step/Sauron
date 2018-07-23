@@ -11,7 +11,7 @@ export default {
         function transformPayload(payload) {
             return {
                 id: payload.id,
-                flow: Object.assign(payload.flow, { end_time: new Date().toString() }),
+                flow: Object.assign(payload.flow, { end_time: new Date().toISOString() }),
                 project: _.omit(payload.project, "repo_keyword"),
                 commit: payload.commit,
                 repository: _.omit(payload.repository, "archive_url"),
