@@ -9,7 +9,7 @@ services:
     volumes:
      - /apps/sauron/projects_config.json:/usr/src/app/projects_config.json
   rabbitmq:
-    image: "rabbitmq:3-management"
+    image: "rabbitmq:3-management-alpine"
     ports:
      - "5672:5672"
      - "15672:15672"
