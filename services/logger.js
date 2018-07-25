@@ -32,8 +32,13 @@ function logEventOccurence(repoName) {
     console.log(`[*] [${timestamp()}] Event came from repo:${repoName}.`)
 }
 
+function logInvalidSignature(repoName) {
+    console.error(`[*] [${timestamp()}] Unauthorised event from repo'${repoName}'`)
+}
+
 export default {
     logInsufficientDataEvent,
+    logInvalidSignature,
     logMessagePublished,
     logPublishError,
     logSavingReports,

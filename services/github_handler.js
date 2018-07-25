@@ -2,9 +2,11 @@ import rabbitmqService from "../services/rabbitmq_service";
 import projects from "../projects_config.json";
 import _ from "underscore";
 import logger from "./logger";
+import crypto from "crypto";
+const SECRET = process.env.SECRET || "THIS_IS_SECRET";
 
 export default function (req, res, next) {
-    const payload = JSON.parse(req.body.payload);
+    const payload = req.body;
     const repoName = payload.repository.name;
     logger.logEventOccurence(repoName);
 
@@ -49,10 +51,27 @@ export default function (req, res, next) {
         });
     }
 
-    if(payload.head_commit) {
-           publishToRabbitMQ(getProjectDetails(repoName))
+    function handleRequest(payload, repoName) {
+        if(payload.head_commit) {
+            publishToRabbitMQ(getProjectDetails(repoName))
+        } else {
+            logger.logInsufficientDataEvent(repoName);
+            res.sendStatus(200);
+        }
+    }
+
+    function verifySignature(signature, secret, data) {
+        const computedSignature = 'sha1=' + crypto.createHmac('sha1', secret).update(data).digest('hex');
+        console.log(secret);
+        console.log(signature);
+        console.log(computedSignature);
+        return crypto.timingSafeEqual(new Buffer(signature), new Buffer(computedSignature));
+    }
+
+    if(verifySignature(req.get("X-Hub-Signature"), SECRET, JSON.stringify(payload))) {
+        handleRequest(payload, repoName);
     } else {
-        logger.logInsufficientDataEvent(repoName);
-        res.sendStatus(200);
+        logger.logInvalidSignature(repoName);
+        res.sendStatus(401);
     }
 }
