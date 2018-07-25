@@ -62,9 +62,6 @@ export default function (req, res, next) {
 
     function verifySignature(signature, secret, data) {
         const computedSignature = 'sha1=' + crypto.createHmac('sha1', secret).update(data).digest('hex');
-        console.log(secret);
-        console.log(signature);
-        console.log(computedSignature);
         return crypto.timingSafeEqual(new Buffer(signature), new Buffer(computedSignature));
     }
 
