@@ -1,0 +1,13 @@
+{
+  "name": "test-project",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "mocha",
+  },
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
