@@ -36,6 +36,7 @@ export default function (req, res, next) {
             commit: _.pick(payload.head_commit, "id", "url", "timestamp"),
             repository: _.pick(payload.repository, "id", "name", "full_name", "archive_url"),
             author: payload.head_commit.author,
+            pusher: payload.pusher,
             project: project
         });
     }

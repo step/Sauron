@@ -16,6 +16,7 @@ export default {
                 commit: payload.commit,
                 repository: _.omit(payload.repository, "archive_url"),
                 author: payload.author,
+                pusher: payload.pusher,
                 job: payload.job
             }
         }
