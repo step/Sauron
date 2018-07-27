@@ -1,5 +1,5 @@
 function timestamp() {
-    return new Date().toString();
+    return new Date().toISOString();
 }
 
 function logInsufficientDataEvent(repoName) {
