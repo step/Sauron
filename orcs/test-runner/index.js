@@ -5,5 +5,9 @@ import task from "./task";
 import config from "./config";
 const orcRunner = require("orc-runner");
 
-shell.exec("sh ./mocha-json-reporter/cleanPackInstall.sh")
+console.log("Installing mocha json reporter");
+shell.exec("npm install mocha -g");
+shell.exec("sh ./cleanPackInstall.sh", {cwd: "./mocha-json-reporter"});
+console.log("Installation of mocha json reporter is done");
+
 orcRunner.start(config, task);
