@@ -13,5 +13,11 @@
     "repo_keyword": "Go_Slack_Integration",
     "name": "Slack Integration",
     "routing_key": "lint.test"
+  },
+  {
+    "repo_keyword": "sample-assignment",
+    "name": "sample-assignment",
+    "routing_key": "lint.test"
   }
+
 ]
