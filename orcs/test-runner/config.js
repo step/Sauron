@@ -11,5 +11,6 @@ export default {
     "sauron": {
         "postReportsUrl": process.env.SAURON_REPORTS_URL || "http://localhost:3010/results"
     },
-    "dependencies": ["chai"]
+    "dependencies": ["chai"],
+    "debug": false
 }
