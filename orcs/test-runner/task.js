@@ -17,6 +17,7 @@ export default function(data,config) {
         }
 
         try {
+            let {project} = data;
             let testsPath = [TESTS_ROOT,project.repo_keyword].join("/");
             copyTests(testsPath, data.directory);
             const report = runTests(data.directory);
