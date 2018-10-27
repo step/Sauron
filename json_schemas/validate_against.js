@@ -1,22 +1,22 @@
-const Ajv=require("ajv");
-const ajv=new Ajv({verbose:true});
-const fs=require("fs");
+const Ajv = require('ajv');
+const ajv = new Ajv({ verbose: true });
+const fs = require('fs');
 
-let fileName=process.argv[2] || "./sample.json";
-let schemaName=process.argv[3] || "./schema.json";
+let fileName = process.argv[2] || './sample.json';
+let schemaName = process.argv[3] || './schema.json';
 
-let schema=JSON.parse(fs.readFileSync(schemaName,"utf8"));
-let json=JSON.parse(fs.readFileSync(fileName,"utf8"));
+let schema = JSON.parse(fs.readFileSync(schemaName, 'utf8'));
+let json = JSON.parse(fs.readFileSync(fileName, 'utf8'));
 
-let validate=ajv.compile(schema);
-let result=validate(json);
+let validate = ajv.compile(schema);
+let result = validate(json);
 
-if(result) {
+if (result) {
   console.log(`${fileName} successfully validated against ${schemaName}`);
   process.exit(0);
 }
 
-validate.errors.forEach(({keyword,dataPath,message,data})=>{
+validate.errors.forEach(({ keyword, dataPath, message, data }) => {
   console.log(`${dataPath} - ${keyword} - ${message} - ${data}`);
 });
 

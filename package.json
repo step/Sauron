@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "prettify": "prettier --single-quote --write \"{orcs,.,routes,public,services,views,modules}/**/*.js\"",
     "start-dev": "nodemon ./bin/www --exec babel-node --presets es2015,stage-2",
     "build": "babel ./bin/www -d dist --presets es2015,stage-2",
     "server": "node dist/index.js",
