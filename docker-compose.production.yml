@@ -19,3 +19,9 @@ services:
     image: "mongo"
     volumes:
      - /docker-volumes/sauron/mongodb:/data/db
+  api:
+    image: "steptw/sauron-api-server:latest"
+    ports: 
+     - "8080:8080"
+    env_file:
+     - sauron_api_variables.env
