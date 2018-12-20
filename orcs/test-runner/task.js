@@ -2,7 +2,7 @@ const shell = require('shelljs');
 const fs = require('fs');
 shell.config.silent = true;
 const TESTS_ROOT = process.env.TESTS_ROOT || './test-project';
-const TIMEOUT_SEC = 10;
+const TIMEOUT_SEC = process.env.TIMEOUT_INTERVAL || 10;
 
 export default function(data, config) {
   return new Promise(function(resolve, reject) {
