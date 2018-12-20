@@ -6,7 +6,9 @@ export default {
     serverURL: process.env.RABBITMQ_SERVER_URL || 'localhost',
     exchange: process.env.RABBITMQ_EXCHANGE || 'task_agents',
     exchangeType: 'topic',
-    routingKey: process.env.RABBITMQ_ROUTINGKEY || 'lint'
+    routingKey: process.env.RABBITMQ_ROUTINGKEY || 'lint',
+    prefetch: true,
+    prefetchLimit: 1
   },
   sauron: {
     postReportsUrl:
